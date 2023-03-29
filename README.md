@@ -19,7 +19,7 @@ Deteksi otomatis plat nomor indonesia lama (hitam - putih) menggunakan gambar.
 username: admin@alpr.id
 password: 123456
 
-![Image](https://i.postimg.cc/NMXHVnLC/image.png)
+![Screenshot-1.png](https://postimg.cc/yJRp3T16)
 ![Image](https://i.postimg.cc/wMYvnTsn/alpr.png)
 
 # Image For test

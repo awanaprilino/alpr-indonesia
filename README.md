@@ -12,14 +12,14 @@ Deteksi otomatis plat nomor indonesia lama (hitam - putih) menggunakan gambar.
 - Git Clone
 - pip Install -r requirements.txt
 - copy lapi.weight to alpr folder
-- import sql file
+- import sql file (flaskdb.sql)
 - run python app.py
 - login
 
 username: admin@alpr.id
 password: 123456
 
-![Image]((https://i.postimg.cc/NMXHVnLC/image.png)
+![Image](https://i.postimg.cc/NMXHVnLC/image.png)
 ![Image](https://i.postimg.cc/wMYvnTsn/alpr.png)
 
 # Image For test

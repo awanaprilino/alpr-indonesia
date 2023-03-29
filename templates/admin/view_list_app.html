@@ -1,0 +1,172 @@
+{% extends 'admin/base.html' %}
+
+{% block title %}
+ALPR - List App
+{% endblock %}
+
+{% block style %}
+    <!--begin::Additional Style-->
+     <!--end::Additional Style-->
+{% endblock %}
+
+{% block content %}
+    <!--begin::Main-->
+    <!--begin::Root-->
+    <div class="d-flex flex-column flex-root">
+        <!--begin::Page-->
+        <div class="page d-flex flex-row flex-column-fluid">
+            <!--begin::Aside-->
+            {% include 'admin/aside.html' %}
+            <!--end::Aside-->
+            <!--begin::Wrapper-->
+            <div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
+                <!--begin::Header-->
+                {% include 'admin/header.html' %}
+                <!--end::Header-->
+                <!--begin::Content-->
+            <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+                <!--begin::Container-->
+                <div class="container" id="kt_content_container">
+                     <!--begin::card-->
+                     <div class="card shadow-sm">
+                        <div class="card-header">
+                            <h3 class="card-title">List Apps</h3>
+                            <div class="card-toolbar">
+                                <a href="#" class="btn btn-light-primary btn-sm font-weight-bolder font-size-sm py-3 px-6" data-bs-toggle="modal" data-bs-target="#kt_modal_create_app">Create</a>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <table id="kt_datatable_example_1" class="table table-row-bordered gy-5">
+                                <thead>
+                                    <tr class="fw-bold fs-6 text-muted">
+                                        <th>App Name</th>
+                                        <th>User</th>
+                                        <th>Created At</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in data['apps'] %}
+                                    <tr>
+                                        <td>{{item.app_name}}</td>
+                                        <td>{{item.fname}} {{item.lname}}</td>
+                                        <td>{{item.created_at}}</td>
+                                        <td><a type="button" class="btn btn-sm btn-primary btn-active-light-primary" href="{{url_for('user.detail_app', id = item.id)}}">
+                                            View
+                                        </a>
+                                    </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>App Name</th>
+                                        <th>User</th>
+                                        <th>Created At</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                    <!--end::card-->
+                 </div>
+            </div>
+            <!--end::Wrapper-->
+        </div>
+    </div>
+    <div class="modal fade" id="kt_modal_create_app" tabindex="-1" style="display: none;" aria-hidden="true">
+        <!--begin::Modal dialog-->
+        <div class="modal-dialog modal-dialog-centered mw-650px">
+            <!--begin::Modal content-->
+            <div class="modal-content">
+                <!--begin::Modal header-->
+                <div class="modal-header" id="kt_modal_add_user_header">
+                    <!--begin::Modal title-->
+                    <h2 class="fw-bolder">Create App</h2>
+                    <!--end::Modal title-->
+                    <!--begin::Close-->
+                    <div class="btn btn-icon btn-sm btn-active-icon-primary" data-bs-dismiss="modal">
+                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                        <span class="svg-icon svg-icon-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black"></rect>
+                                <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black"></rect>
+                            </svg>
+                        </span>
+                        <!--end::Svg Icon-->
+                    </div>
+                    <!--end::Close-->
+                </div>
+                <!--end::Modal header-->
+                <!--begin::Modal body-->
+                <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
+                    <!--begin::Form-->
+                    <form id="kt_modal_create_app_form" class="form fv-plugins-bootstrap5 fv-plugins-framework" action="#">
+                        <!--begin::Scroll-->
+                        <div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_add_user_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_user_header" data-kt-scroll-wrappers="#kt_modal_add_user_scroll" data-kt-scroll-offset="300px">
+                            <!--begin::Input group-->
+                            <div class="fv-row mb-7 fv-plugins-icon-container">
+                                <!--begin::Label-->
+                                <label class="required fw-bold fs-6 mb-2">App Name</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="text" name="app_name" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Parking Lot" required>
+                                <!--end::Input-->
+                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                            <!--end::Input group-->
+                        </div>
+                        <!--end::Scroll-->
+                        <!--begin::Actions-->
+                        <div class="text-center pt-15">
+                            <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Discard</button>
+                            <button id="create_app" class="btn btn-primary">
+                                <span class="indicator-label">Submit</span>
+                                <span class="indicator-progress">Please wait... 
+                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                            </button>
+                        </div>
+                        <!--end::Actions-->
+                    <div></div></form>
+                    <!--end::Form-->
+                </div>
+                <!--end::Modal body-->
+            </div>
+            <!--end::Modal content-->
+        </div>
+        <!--end::Modal dialog-->
+    </div>
+{% endblock %}
+
+<!--begin::Page Custom Javascript(used by this page)-->
+{% block script %}
+<script>
+        $("#kt_datatable_example_1").DataTable({
+        filter: true,
+        deferRender: true,
+        ordering:false,
+        searching: true,
+    });
+</script>
+<script>
+    $("#create_app").click(function(e){
+        $("#create_app").addClass("spinner spinner-white spinner-right disabled");
+        e.preventDefault();
+        $.ajax({
+            url: '{{url_for("user.apps")}}',
+            type: 'post',
+            data:  $("#kt_modal_create_app_form").serialize(),             
+            success: function(response, status, xhr, $form) {
+            if(response.status == 1){
+                toastr.success(response.message);
+                setTimeout(function(){ location.reload();; }, 3000);
+            }else{
+                toastr.error(response.message);
+            }             
+            }
+        });
+     })
+     </script>
+{% endblock %}
+<!--end::Page Custom Javascript-->
+

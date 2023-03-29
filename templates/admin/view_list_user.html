@@ -1,0 +1,468 @@
+{% extends 'admin/base.html' %}
+
+{% block title %}
+ALPR - List User
+{% endblock %}
+
+{% block style %}
+    <!--begin::Additional Style-->
+     <!--end::Additional Style-->
+{% endblock %}
+
+{% block content %}
+    <!--begin::Main-->
+    <!--begin::Root-->
+    <div class="d-flex flex-column flex-root">
+        <!--begin::Page-->
+        <div class="page d-flex flex-row flex-column-fluid">
+            <!--begin::Aside-->
+            {% include 'admin/aside.html' %}
+            <!--end::Aside-->
+            <!--begin::Wrapper-->
+            <div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
+                <!--begin::Header-->
+                {% include 'admin/header.html' %}
+                <!--end::Header-->
+                <!--begin::Content-->
+            <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+                <!--begin::Container-->
+                <div class="container" id="kt_content_container">
+                    <!--begin::card-->
+                    <div class="card shadow-sm">
+                        <div class="card-header">
+                            <h3 class="card-title">List User</h3>
+                            <div class="card-toolbar">
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_user">
+                                    <!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->
+                                    <span class="svg-icon svg-icon-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                            <rect opacity="0.5" x="11.364" y="20.364" width="16" height="2" rx="1" transform="rotate(-90 11.364 20.364)" fill="black"></rect>
+                                            <rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="black"></rect>
+                                        </svg>
+                                    </span>
+                                    <!--end::Svg Icon-->Add User
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <table id="kt_datatable_example_1" class="table table-row-bordered gy-5">
+                                <thead>
+                                    <tr class="fw-bold fs-6 text-muted">
+                                        <th>Email</th>
+                                        <th>Name</th>
+                                        <th>Privilege</th>
+                                        <th>Created At</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in data['users'] %}
+                                    <tr>
+                                        <td>{{item.email}}</td>
+                                        <td>{{item.fname}} {{item.lname}}</td>
+                                        <td>{% if item.privilege == '1' %} Admin {% else %} User {% endif %}</td>
+                                        <td>{{item.created_at}}</td>
+                                        <td><button type="button" class="btn btn-sm btn-icon btn-primary btn-active-light-primary" onclick="edit('{{item.id}}')">
+                                            <!--begin::Svg Icon | path: icons/duotune/coding/cod007.svg-->
+                                            <span class="svg-icon svg-icon-primary svg-icon-2x"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo2/dist/../src/media/svg/icons/Design/Edit.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                    <rect x="0" y="0" width="24" height="24"/>
+                                                    <path d="M8,17.9148182 L8,5.96685884 C8,5.56391781 8.16211443,5.17792052 8.44982609,4.89581508 L10.965708,2.42895648 C11.5426798,1.86322723 12.4640974,1.85620921 13.0496196,2.41308426 L15.5337377,4.77566479 C15.8314604,5.0588212 16,5.45170806 16,5.86258077 L16,17.9148182 C16,18.7432453 15.3284271,19.4148182 14.5,19.4148182 L9.5,19.4148182 C8.67157288,19.4148182 8,18.7432453 8,17.9148182 Z" fill="#000000" fill-rule="nonzero" transform="translate(12.000000, 10.707409) rotate(-135.000000) translate(-12.000000, -10.707409) "/>
+                                                    <rect fill="#000000" opacity="0.3" x="5" y="20" width="15" height="2" rx="1"/>
+                                                </g>
+                                            </svg><!--end::Svg Icon--></span>
+                                            <!--end::Svg Icon-->
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-icon btn-danger btn-active-light-danger" onclick="hapus('{{item.id}}')">
+                                            <!--begin::Svg Icon | path: icons/duotune/coding/cod007.svg-->
+                                            <span class="svg-icon svg-icon-primary svg-icon-2x"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo2/dist/../src/media/svg/icons/Home/Trash.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                    <rect x="0" y="0" width="24" height="24"/>
+                                                    <path d="M6,8 L18,8 L17.106535,19.6150447 C17.04642,20.3965405 16.3947578,21 15.6109533,21 L8.38904671,21 C7.60524225,21 6.95358004,20.3965405 6.89346498,19.6150447 L6,8 Z M8,10 L8.45438229,14.0894406 L15.5517885,14.0339036 L16,10 L8,10 Z" fill="#000000" fill-rule="nonzero"/>
+                                                    <path d="M14,4.5 L14,3.5 C14,3.22385763 13.7761424,3 13.5,3 L10.5,3 C10.2238576,3 10,3.22385763 10,3.5 L10,4.5 L5.5,4.5 C5.22385763,4.5 5,4.72385763 5,5 L5,5.5 C5,5.77614237 5.22385763,6 5.5,6 L18.5,6 C18.7761424,6 19,5.77614237 19,5.5 L19,5 C19,4.72385763 18.7761424,4.5 18.5,4.5 L14,4.5 Z" fill="#000000" opacity="0.3"/>
+                                                </g>
+                                            </svg><!--end::Svg Icon--></span>
+                                            <!--end::Svg Icon-->
+                                        </button>
+                                    
+                                    </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>Email</th>
+                                        <th>Name</th>
+                                        <th>Privilege</th>
+                                        <th>Created At</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                    <!--end::card-->
+                </div>
+            </div>
+            <!--end::Wrapper-->
+        </div>
+    </div>
+    <div class="modal fade" id="kt_modal_add_user" tabindex="-1" style="display: none;" aria-hidden="true">
+        <!--begin::Modal dialog-->
+        <div class="modal-dialog modal-dialog-centered mw-650px">
+            <!--begin::Modal content-->
+            <div class="modal-content">
+                <!--begin::Modal header-->
+                <div class="modal-header" id="kt_modal_add_user_header">
+                    <!--begin::Modal title-->
+                    <h2 class="fw-bolder">Add User</h2>
+                    <!--end::Modal title-->
+                    <!--begin::Close-->
+                    <div class="btn btn-icon btn-sm btn-active-icon-primary" data-bs-dismiss="modal">
+                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                        <span class="svg-icon svg-icon-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black"></rect>
+                                <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black"></rect>
+                            </svg>
+                        </span>
+                        <!--end::Svg Icon-->
+                    </div>
+                    <!--end::Close-->
+                </div>
+                <!--end::Modal header-->
+                <!--begin::Modal body-->
+                <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
+                    <!--begin::Form-->
+                    <form id="kt_modal_add_user_form" class="form fv-plugins-bootstrap5 fv-plugins-framework" action="#">
+                        <!--begin::Scroll-->
+                        <div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_add_user_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_user_header" data-kt-scroll-wrappers="#kt_modal_add_user_scroll" data-kt-scroll-offset="300px">
+                            <!--begin::Input group-->
+                            <div class="fv-row mb-7 fv-plugins-icon-container">
+                                <!--begin::Label-->
+                                <label class="required fw-bold fs-6 mb-2">First Name</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="text" name="fname" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Awan" required>
+                                <!--end::Input-->
+                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                            <!--end::Input group-->
+                             <!--begin::Input group-->
+                             <div class="fv-row mb-7 fv-plugins-icon-container">
+                                <!--begin::Label-->
+                                <label class="required fw-bold fs-6 mb-2">Last Name</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="text" name="lname" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Aprilino" required>
+                                <!--end::Input-->
+                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                            <!--end::Input group-->
+                            <!--begin::Input group-->
+                            <div class="fv-row mb-7 fv-plugins-icon-container">
+                                <!--begin::Label-->
+                                <label class="required fw-bold fs-6 mb-2">Email</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="email" name="email" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="example@domain.com" required>
+                                <!--end::Input-->
+                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                            <!--end::Input group-->
+                            <!--begin::Input group-->
+                            <div class="fv-row mb-7 fv-plugins-icon-container">
+                                <!--begin::Label-->
+                                <label class="required fw-bold fs-6 mb-2">Password</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="password" name="password" class="form-control form-control-solid mb-3 mb-lg-0" required>
+                                <!--end::Input-->
+                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                            <!--end::Input group-->
+                            <!--begin::Input group-->
+                            <div class="mb-7">
+                                <!--begin::Label-->
+                                <label class="required fw-bold fs-6 mb-5">Role</label>
+                                <!--end::Label-->
+                                <!--begin::Roles-->
+                                <!--begin::Input row-->
+                                <div class="d-flex fv-row">
+                                    <!--begin::Radio-->
+                                    <div class="form-check form-check-custom form-check-solid">
+                                        <!--begin::Input-->
+                                        <input class="form-check-input me-3" name="user_role" type="radio" value="1" id="kt_modal_update_role_option_0" checked="checked">
+                                        <!--end::Input-->
+                                        <!--begin::Label-->
+                                        <label class="form-check-label" for="kt_modal_update_role_option_0">
+                                            <div class="fw-bolder text-gray-800">Administrator</div>
+                                        </label>
+                                        <!--end::Label-->
+                                    </div>
+                                    <!--end::Radio-->
+                                </div>
+                                <!--end::Input row-->
+                                <div class="separator separator-dashed my-5"></div>
+                                <!--begin::Input row-->
+                                <div class="d-flex fv-row">
+                                    <!--begin::Radio-->
+                                    <div class="form-check form-check-custom form-check-solid">
+                                        <!--begin::Input-->
+                                        <input class="form-check-input me-3" name="user_role" type="radio" value="0" id="kt_modal_update_role_option_1">
+                                        <!--end::Input-->
+                                        <!--begin::Label-->
+                                        <label class="form-check-label" for="kt_modal_update_role_option_1">
+                                            <div class="fw-bolder text-gray-800">User</div>
+                                        </label>
+                                        <!--end::Label-->
+                                    </div>
+                                    <!--end::Radio-->
+                                </div>
+                                <!--end::Roles-->
+                            </div>
+                            <!--end::Input group-->
+                        </div>
+                        <!--end::Scroll-->
+                        <!--begin::Actions-->
+                        <div class="text-center pt-15">
+                            <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Discard</button>
+                            <button id="add_user" class="btn btn-primary">
+                                <span class="indicator-label">Submit</span>
+                                <span class="indicator-progress">Please wait... 
+                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                            </button>
+                        </div>
+                        <!--end::Actions-->
+                    <div></div></form>
+                    <!--end::Form-->
+                </div>
+                <!--end::Modal body-->
+            </div>
+            <!--end::Modal content-->
+        </div>
+        <!--end::Modal dialog-->
+    </div>
+    <div class="modal fade" id="kt_modal_edit_user" tabindex="-1" style="display: none;" aria-hidden="true">
+        <!--begin::Modal dialog-->
+        <div class="modal-dialog modal-dialog-centered mw-650px">
+            <!--begin::Modal content-->
+            <div class="modal-content">
+                <!--begin::Modal header-->
+                <div class="modal-header" id="kt_modal_add_user_header">
+                    <!--begin::Modal title-->
+                    <h2 class="fw-bolder">Edit User</h2>
+                    <!--end::Modal title-->
+                    <!--begin::Close-->
+                    <div class="btn btn-icon btn-sm btn-active-icon-primary" data-bs-dismiss="modal">
+                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                        <span class="svg-icon svg-icon-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black"></rect>
+                                <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black"></rect>
+                            </svg>
+                        </span>
+                        <!--end::Svg Icon-->
+                    </div>
+                    <!--end::Close-->
+                </div>
+                <!--end::Modal header-->
+                <!--begin::Modal body-->
+                <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
+                    <!--begin::Form-->
+                    <form id="kt_modal_edit_user_form" class="form fv-plugins-bootstrap5 fv-plugins-framework" action="#">
+                        <!--begin::Scroll-->
+                        <div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_add_user_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_user_header" data-kt-scroll-wrappers="#kt_modal_add_user_scroll" data-kt-scroll-offset="300px">
+                            <!--begin::Input group-->
+                            <div class="fv-row mb-7 fv-plugins-icon-container">
+                                <!--begin::Label-->
+                                <label class="required fw-bold fs-6 mb-2">First Name</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="hidden" name="id" class="form-control form-control-solid mb-3 mb-lg-0" id="user_id">
+                                <input type="text" name="fname" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Awan" id="fname" required>
+                                <!--end::Input-->
+                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                            <!--end::Input group-->
+                             <!--begin::Input group-->
+                             <div class="fv-row mb-7 fv-plugins-icon-container">
+                                <!--begin::Label-->
+                                <label class="required fw-bold fs-6 mb-2">Last Name</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="text" name="lname" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Aprilino" id="lname" required>
+                                <!--end::Input-->
+                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                            <!--end::Input group-->
+                            <!--begin::Input group-->
+                            <div class="fv-row mb-7 fv-plugins-icon-container">
+                                <!--begin::Label-->
+                                <label class="required fw-bold fs-6 mb-2">Email</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="email" name="email" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="example@domain.com" id="email" required>
+                                <!--end::Input-->
+                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                            <!--end::Input group-->
+                            <!--begin::Input group-->
+                            <div class="fv-row mb-7 fv-plugins-icon-container">
+                                <!--begin::Label-->
+                                <label class="required fw-bold fs-6 mb-2">Password</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="password" name="password" class="form-control form-control-solid mb-3 mb-lg-0" id="password" required>
+                                <!--end::Input-->
+                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                            <!--end::Input group-->
+                            <!--begin::Input group-->
+                            <div class="mb-7">
+                                <!--begin::Label-->
+                                <label class="required fw-bold fs-6 mb-5">Role</label>
+                                <!--end::Label-->
+                                <!--begin::Roles-->
+                                <!--begin::Input row-->
+                                <div class="d-flex fv-row">
+                                    <!--begin::Radio-->
+                                    <div class="form-check form-check-custom form-check-solid">
+                                        <!--begin::Input-->
+                                        <input class="form-check-input me-3" name="user_role" type="radio" value="1" id="admin">
+                                        <!--end::Input-->
+                                        <!--begin::Label-->
+                                        <label class="form-check-label" for="kt_modal_update_role_option_0">
+                                            <div class="fw-bolder text-gray-800">Administrator</div>
+                                        </label>
+                                        <!--end::Label-->
+                                    </div>
+                                    <!--end::Radio-->
+                                </div>
+                                <!--end::Input row-->
+                                <div class="separator separator-dashed my-5"></div>
+                                <!--begin::Input row-->
+                                <div class="d-flex fv-row">
+                                    <!--begin::Radio-->
+                                    <div class="form-check form-check-custom form-check-solid">
+                                        <!--begin::Input-->
+                                        <input class="form-check-input me-3" name="user_role" type="radio" value="0" id="user">
+                                        <!--end::Input-->
+                                        <!--begin::Label-->
+                                        <label class="form-check-label" for="kt_modal_update_role_option_1">
+                                            <div class="fw-bolder text-gray-800">User</div>
+                                        </label>
+                                        <!--end::Label-->
+                                    </div>
+                                    <!--end::Radio-->
+                                </div>
+                                <!--end::Roles-->
+                            </div>
+                            <!--end::Input group-->
+                        </div>
+                        <!--end::Scroll-->
+                        <!--begin::Actions-->
+                        <div class="text-center pt-15">
+                            <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Discard</button>
+                            <button id="edit_user" class="btn btn-primary">
+                                <span class="indicator-label">Submit</span>
+                                <span class="indicator-progress">Please wait... 
+                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                            </button>
+                        </div>
+                        <!--end::Actions-->
+                    <div></div></form>
+                    <!--end::Form-->
+                </div>
+                <!--end::Modal body-->
+            </div>
+            <!--end::Modal content-->
+        </div>
+        <!--end::Modal dialog-->
+    </div>
+{% endblock %}
+
+<!--begin::Page Custom Javascript(used by this page)-->
+{% block script %}
+<script>
+    function edit(id){
+        $.ajax({ 
+            type: 'GET', 
+            url: '{{url_for("admin.user_detail", id = "")}}'+id, 
+            data: { get_param: 'value' }, 
+            dataType: 'json',
+            success: function (data) { 
+                $("#user_id").val(data.id);
+                $("#fname").val(data.fname);
+                $("#lname").val(data.lname);
+                $("#email").val(data.email);
+                if(data.privilege == 1)
+                    $("#admin").prop('checked', 'checked');
+                else
+                    $("#user").prop('checked', 'checked');
+
+            }
+        });
+        $('#kt_modal_edit_user').modal('show');
+    }
+    function hapus(id){
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Yes, delete it!"
+        }).then(function(result) {
+            
+            $.ajax({
+                url: '{{url_for("admin.list_user")}}',
+                type: 'DELETE',
+                data:  {id: id},             
+                success: function(response, status, xhr, $form) {
+                    if(response.status == 1){
+                        Swal.fire(
+                            "Deleted!",
+                            "User has been deleted.",
+                            "success"
+                        )
+                        location.reload();
+                    }          
+                }
+            });
+        });
+    }
+    $("#kt_datatable_example_1").DataTable({
+        filter: true,
+        deferRender: true,
+        ordering:false,
+        searching: true,
+    });
+
+    $("#add_user").click(function(e){
+        e.preventDefault();
+        $.ajax({
+            url: '{{url_for("admin.list_user")}}',
+            type: 'post',
+            data:  $("#kt_modal_add_user_form").serialize(),             
+            success: function(response, status, xhr, $form) {
+            if(response.status == 1){
+                toastr.success(response.message);
+                setTimeout(function(){ location.reload();; }, 3000);
+            }else{
+                toastr.error(response.message);
+            }             
+            }
+        });
+     })
+     $("#edit_user").click(function(e){
+        e.preventDefault();
+        $.ajax({
+            url: '{{url_for("admin.list_user")}}',
+            type: 'put',
+            data:  $("#kt_modal_edit_user_form").serialize(),             
+            success: function(response, status, xhr, $form) {
+            if(response.status == 1){
+                toastr.success(response.message);
+                setTimeout(function(){ location.reload();; }, 3000);
+            }else{
+                toastr.error(response.message);
+            }             
+            }
+        });
+     })
+</script>
+{% endblock %}
+<!--end::Page Custom Javascript-->
+

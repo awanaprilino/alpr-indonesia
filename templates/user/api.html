@@ -1,0 +1,81 @@
+{% extends 'user/base.html' %}
+
+{% block title %}
+ALPR - {{data['title']}}
+{% endblock %}
+
+{% block content %}
+<!--begin::Main-->
+<!--begin::Root-->
+<div class="d-flex flex-column flex-root">
+    <!--begin::Page-->
+    <div class="page d-flex flex-row flex-column-fluid">
+        <!--begin::Aside-->
+        {% include 'user/aside.html' %}
+        <!--end::Aside-->
+        <!--begin::Wrapper-->
+        <div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
+            <!--begin::Header-->
+            {% include 'user/header.html' %}
+            <!--end::Header-->
+            <!--begin::Content-->
+        <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+            <!--begin::Container-->
+            <div class="container" id="kt_content_container">
+                <div class="card mb-5 mb-xl-10">
+                    <div class="card-body pt-0 pb-0">
+                        <!--begin::Navs-->
+                        <ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bolder">
+                            <!--begin::Nav item-->
+                            <li class="nav-item mt-2">
+                                <a class="nav-link text-active-primary ms-0 me-10 py-5" href="{{url_for('user.detail_app', id = data.app_id)}}">License Plate</a>
+                            </li>
+                            <!--end::Nav item-->
+                            <!--begin::Nav item-->
+                            <li class="nav-item mt-2">
+                                <a class="nav-link text-active-primary ms-0 me-10 py-5 active" href="{{url_for('user.detail_api', id = data.app_id)}}">API</a>
+                            </li>
+                            <!--end::Nav item-->
+                            <!--begin::Nav item-->
+                            <li class="nav-item mt-2">
+                                <a class="nav-link text-active-primary ms-0 me-10 py-5" href="{{url_for('user.setting_app', id = data.app_id)}}">Settings</a>
+                            </li>
+                            <!--end::Nav item-->
+                        </ul>
+                        <!--begin::Navs-->
+                    </div>
+                </div>
+                <div class="card mb-5 mb-xl-10">
+                    <!--begin::Card header-->
+                    <div class="card-header border-0 cursor-pointer" data-bs-target="#kt_account_profile_details" aria-expanded="true" aria-controls="kt_account_profile_details">
+                        <!--begin::Card title-->
+                        <div class="card-title m-0">
+                            <h3 class="fw-bolder m-0">API Docs</h3>
+                        </div>
+                        <!--end::Card title-->
+                    </div>
+                    <!--begin::Card header-->
+                    <!--begin::Content-->
+                    <div class="card-body">
+                        <p>App Token : <code>{{data.token}}</code></p>
+                        <br/>
+                        <p>Using <code>POST</code> to send  image and detect plate number</p>
+                        <p>POST - https://alpr.awanpc.id/api/app/<code>[app token]</code></p>
+                        <p> - form-data <code>imageFile</code> type : file</p>
+                        <br/>
+                        <p>Using <code>GET</code> to get all data plate number with cropped plate image</p>
+                        <p>GET - https://alpr.awanpc.id/api/app/<code>[app token]</code></p>
+                    </div>
+                    <!--end::Content-->
+                </div>
+            </div>
+        </div>
+        <!--end::Wrapper-->
+    </div>
+</div>
+{% endblock %}
+
+<!--begin::Page Custom Javascript(used by this page)-->
+{% block script %}
+{% endblock %}
+<!--end::Page Custom Javascript-->

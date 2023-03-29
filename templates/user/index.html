@@ -1,0 +1,279 @@
+{% extends 'user/base.html' %}
+
+{% block title %}
+ALPR - Dashboard
+{% endblock %}
+
+{% block style %}
+    <!--begin::Additional Style-->
+    <style>
+        .create-app{
+            background-image: url("{{ url_for('static', filename= 'media/illustrations/user-welcome.png')}}");
+        }
+    </style>
+     <!--end::Additional Style-->
+{% endblock %}
+
+{% block content %}
+    <!--begin::Main-->
+    <!--begin::Root-->
+    <div class="d-flex flex-column flex-root">
+        <!--begin::Page-->
+        <div class="page d-flex flex-row flex-column-fluid">
+            <!--begin::Aside-->
+            <div id="kt_aside" class="aside aside-extended bg-white" data-kt-drawer="true" data-kt-drawer-name="aside" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="auto" data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_aside_toggle">
+                <!--begin::Primary-->
+                <div class="aside-primary d-flex flex-column align-items-lg-center flex-row-auto">
+                    <!--begin::Logo-->
+                    <div class="aside-logo d-none d-lg-flex flex-column align-items-center flex-column-auto pt-10" id="kt_aside_logo">
+                        <a href="{{url_for('dashboard')}}">
+                            <img alt="Logo" src="{{ url_for('static', filename= 'media/logos/chip.svg')}}" class="h-55px" />
+                        </a>
+                    </div>
+                    <!--end::Logo-->
+                    <!--begin::Nav-->
+                    {% include 'user/aside.html' %}
+                    <!--end::Nav-->
+                </div>
+                <!--end::Primary-->
+                <!--begin::Action-->
+                <!--end::Action-->
+            </div>
+            <!--end::Aside-->
+            <!--begin::Wrapper-->
+            <div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
+                <!--begin::Header-->
+                {% include 'user/header.html' %}
+                <!--end::Header-->
+                <!--begin::Content-->
+            <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+                <!--begin::Container-->
+                <div class="container" id="kt_content_container">
+                    <!--begin::Row-->
+                    <div class="row g-5 gx-xxl-8 mb-xxl-3">
+                        <!--begin::Col-->
+                        <div class="col-xxl-4">
+                            {% if data.apps|length > 0 %}   
+                                <!--begin::List App-->
+                                <div class="card card-xxl-stretch">
+                                    <!--begin::Header-->
+                                    <div class="card-header border-0 pt-6 mb-2">
+                                        <h3 class="card-title align-items-start flex-column">
+                                            <span class="card-label font-weight-bold font-size-h4 text-dark-75 mb-3">Apps</span>                                        </h3>
+                                        <div class="card-toolbar">
+                                            <a href="#" class="btn btn-light-primary btn-sm font-weight-bolder font-size-sm py-3 px-6" data-bs-toggle="modal" data-bs-target="#kt_modal_create_app">Create</a>
+                                        </div>
+                                    </div>
+                                    <!--end::Header-->
+                                    <!--begin::Body-->
+                                    <div class="card-body pt-5">
+                                        {% for item in data['apps'] %}
+                                        <!--begin::Item-->
+                                        <div class="d-flex align-items-sm-center mb-9">
+                                            <!--begin::Section-->
+                                            <div class="d-flex align-items-center flex-row-fluid flex-wrap">
+                                                <div class="symbol symbol-50px me-5">
+                                                    <span class="symbol-label">
+                                                        <span class="svg-icon svg-icon-xl svg-icon-primary">
+                                                            <!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Home/Library.svg-->
+                                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                    <rect x="0" y="0" width="24" height="24"></rect>
+                                                                    <path d="M5,3 L6,3 C6.55228475,3 7,3.44771525 7,4 L7,20 C7,20.5522847 6.55228475,21 6,21 L5,21 C4.44771525,21 4,20.5522847 4,20 L4,4 C4,3.44771525 4.44771525,3 5,3 Z M10,3 L11,3 C11.5522847,3 12,3.44771525 12,4 L12,20 C12,20.5522847 11.5522847,21 11,21 L10,21 C9.44771525,21 9,20.5522847 9,20 L9,4 C9,3.44771525 9.44771525,3 10,3 Z" fill="#000000"></path>
+                                                                    <rect fill="#000000" opacity="0.3" transform="translate(17.825568, 11.945519) rotate(-19.000000) translate(-17.825568, -11.945519)" x="16.3255682" y="2.94551858" width="3" height="18" rx="1"></rect>
+                                                                </g>
+                                                            </svg>
+                                                            <!--end::Svg Icon-->
+                                                        </span>
+                                                    </span>
+                                                </div>
+                                                <!--begin::Block-->
+                                                <div class="flex-grow-1 me-2">
+                                                    <a href="#" class="text-gray-800 text-hover-primary fs-4 fw-boldest">{{item.app_name}}</a>
+                                                </div>
+                                                <!--end::Block-->
+                                                <!--begin::Badge-->
+                                                <a href="{{url_for('user.detail_app', id = item.id)}}" class="btn btn-light text-muted fw-boldest btn-sm px-5">View</a>
+                                                <!--end::Badge-->
+                                            </div>
+                                            <!--end::Section-->
+                                        </div>
+                                        <!--end::Item-->
+                                        {% endfor %}
+                                    </div>
+                                    <!--end::Body-->
+                                </div>
+                            <!--end::List App--> 
+                            {% else %}
+                                <!--begin::Engage Widget 1-->
+                            <div class="card card-xxl-stretch">
+                                <!--begin::Card body-->
+                                <div class="card-body d-flex flex-column justify-content-between h-100">
+                                    <!--begin::Section-->
+                                    <div class="pt-12">
+                                        <!--begin::Title-->
+                                        <h3 class="text-dark text-center fs-1 fw-boldest line-height-lg">Kickstart 
+                                        <br />First Application</h3>
+                                        <!--end::Title-->
+                                        <!--begin::Text-->
+                                        <div class="text-center text-gray-600 fs-5 fw-bold pt-4">Outlines keep you honest. They stoping you from amazing poorly about mega drive</div>
+                                        <!--end::Text-->
+                                        <!--begin::Action-->
+                                        <div class="text-center py-7 mb-18">
+                                            <a href="#" class="btn btn-primary fs-6 px-6" data-bs-toggle="modal" data-bs-target="#kt_modal_create_app">Create App</a>
+                                        </div>
+                                        <!--end::Action-->
+                                    </div>
+                                    <!--end::Section-->
+                                    <!--begin::Image-->
+                                    <div class="flex-grow-1 bgi-no-repeat bgi-size-contain bgi-position-x-center bgi-position-y-bottom card-rounded-bottom h-150px create-app"></div>
+                                    <!--end::Image-->
+                                </div>
+                                <!--end::Card body-->
+                            </div>
+                            <!--end::Engage Widget 1-->
+                            {% endif %}
+                            
+                        </div>
+                        <!--end::Col-->
+                        <!--begin::Col-->
+                        <div class="col-xxl-8">
+                            <!--begin::Chart Widget 1-->
+                            <div class="card card-xxl-stretch mb-5 mb-xxl-8">
+                                <!--begin::Card header-->
+                                <div class="card-header border-0 pt-5">
+                                    <!--begin::Card title-->
+                                    <h3 class="card-title align-items-start flex-column">
+                                        <span class="card-label fw-boldest fs-3 text-dark">Dashboard</span>
+                                    </h3>
+                                    <!--end::Card title-->
+                                </div>
+                                <!--end::Header-->
+                                <!--begin::Card body-->
+                                <div class="card-body p-0">
+                                    <!--begin::Tab content-->
+                                    <div class="tab-content pt-10">
+                                        <!--begin::Row-->
+                                        <div class="row p-0 px-9">
+                                            <!--begin::Col-->
+                                            <div class="col">
+                                                <!--begin::Stat-->
+                                                <div class="border border-dashed border-gray-300 text-center min-w-125px rounded pt-6 pb-4 my-3">
+                                                    <span class="fs-4 fw-bold text-gray-400 d-block">Total Apps</span>
+                                                    <span class="fs-2x fw-boldest text-gray-800" data-kt-countup="true" data-kt-countup-value="{{data.apps|length}}">0</span>
+                                                </div>
+                                                <!--end::Stat-->
+                                            </div>
+                                            <!--end::Col-->
+                                            <!--begin::Col-->
+                                            <div class="col">
+                                                <!--begin::Stat-->
+                                                <div class="border border-dashed border-gray-300 text-center min-w-125px rounded pt-6 pb-4 my-3">
+                                                    <span class="fs-4 fw-bold text-gray-400 d-block">Total License Plate</span>
+                                                    <span class="fs-2x fw-boldest text-gray-800" data-kt-countup="true" data-kt-countup-value="{{data.lp_total|length}}">0</span>
+                                                </div>
+                                                <!--end::Stat-->
+                                            </div>
+                                            <!--end::Col-->
+                                        </div>
+                                        <!--end::Row-->
+                                    </div>
+                                    <!--end::Tab content-->
+                                </div>
+                                <!--end::Card body-->
+                            </div>
+                            <!--end::Chart Widget 1-->
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <!--end::Row-->
+                </div>
+            </div>
+            <!--end::Wrapper-->
+        </div>
+    </div>
+    <div class="modal fade" id="kt_modal_create_app" tabindex="-1" style="display: none;" aria-hidden="true">
+        <!--begin::Modal dialog-->
+        <div class="modal-dialog modal-dialog-centered mw-650px">
+            <!--begin::Modal content-->
+            <div class="modal-content">
+                <!--begin::Modal header-->
+                <div class="modal-header" id="kt_modal_add_user_header">
+                    <!--begin::Modal title-->
+                    <h2 class="fw-bolder">Create App</h2>
+                    <!--end::Modal title-->
+                    <!--begin::Close-->
+                    <div class="btn btn-icon btn-sm btn-active-icon-primary" data-bs-dismiss="modal">
+                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                        <span class="svg-icon svg-icon-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black"></rect>
+                                <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black"></rect>
+                            </svg>
+                        </span>
+                        <!--end::Svg Icon-->
+                    </div>
+                    <!--end::Close-->
+                </div>
+                <!--end::Modal header-->
+                <!--begin::Modal body-->
+                <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
+                    <!--begin::Form-->
+                    <form id="kt_modal_create_app_form" class="form fv-plugins-bootstrap5 fv-plugins-framework" action="#">
+                        <!--begin::Scroll-->
+                        <div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_add_user_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_user_header" data-kt-scroll-wrappers="#kt_modal_add_user_scroll" data-kt-scroll-offset="300px">
+                            <!--begin::Input group-->
+                            <div class="fv-row mb-7 fv-plugins-icon-container">
+                                <!--begin::Label-->
+                                <label class="required fw-bold fs-6 mb-2">App Name</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="text" name="app_name" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Parking Lot" required>
+                                <!--end::Input-->
+                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                            <!--end::Input group-->
+                        </div>
+                        <!--end::Scroll-->
+                        <!--begin::Actions-->
+                        <div class="text-center pt-15">
+                            <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Discard</button>
+                            <button id="create_app" class="btn btn-primary">
+                                <span class="indicator-label">Submit</span>
+                                <span class="indicator-progress">Please wait... 
+                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                            </button>
+                        </div>
+                        <!--end::Actions-->
+                    <div></div></form>
+                    <!--end::Form-->
+                </div>
+                <!--end::Modal body-->
+            </div>
+            <!--end::Modal content-->
+        </div>
+        <!--end::Modal dialog-->
+    </div>
+{% endblock %}
+
+<!--begin::Page Custom Javascript(used by this page)-->
+{% block script %}
+    <script>
+    $("#create_app").click(function(e){
+        e.preventDefault();
+        $.ajax({
+            url: '{{url_for("user.apps")}}',
+            type: 'post',
+            data:  $("#kt_modal_create_app_form").serialize(),             
+            success: function(response, status, xhr, $form) {
+            if(response.status == 1){
+                toastr.success(response.message);
+                setTimeout(function(){ location.reload();; }, 3000);
+            }else{
+                toastr.error(response.message);
+            }             
+            }
+        });
+     })
+     </script>
+    <!--end::Page Custom Javascript-->
+{% endblock %}

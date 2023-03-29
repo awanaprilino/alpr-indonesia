@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!--begin::Fonts-->
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700" />
+		<!--end::Fonts-->
+		<!--begin::Global Stylesheets Bundle(used by all pages)-->
+    <link href="{{ url_for('static', filename= 'css/style.bundle.css')}}" rel="stylesheet" type="text/css" />
+		<link href="{{ url_for('static', filename= 'plugins/global/plugins.bundle.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{ url_for('static', filename= 'plugins/custom/datatables/datatables.bundle.css')}}" rel="stylesheet" type="text/css" />
+		<!--end::Global Stylesheets Bundle-->
+    <!--begin::Custom Title -->
+    <title>{% block title %} {% endblock %}</title>
+    <!--end::Custom Title -->
+    <!--begin::Addition Style -->
+    {% block style %} {% endblock %}
+    <!--end::Addition Style -->
+  </head>
+  <body id="kt_body" class="header-fixed header-tablet-and-mobile-fixed aside-fixed aside-secondary-disabled">
+    {% block header %} {% endblock %}
+    {% block content %} {% endblock %}
+    <!--begin::Javascript-->
+		<script src="{{ url_for('static', filename= 'plugins/global/plugins.bundle.js')}}"></script>
+		<script src="{{ url_for('static', filename= 'js/scripts.bundle.js')}}"></script>
+    <script src="{{ url_for('static', filename= 'plugins/custom/datatables/datatables.bundle.js')}}"></script>
+    <script>
+      $(document).ready(function () {
+      $("[id='{{request.endpoint}}']").addClass("active"); })
+    </script>
+    <!--begin::Additional Script -->
+    {% block script %} {% endblock %}
+    <!--end::Additional Script -->
+    <!--end::Javascript-->
+  </body>
+</html>

@@ -18,4 +18,14 @@ Deteksi otomatis plat nomor indonesia lama (hitam - putih) menggunakan gambar.
 admin@alpr.id
 123456
 
+![Image](https://i.postimg.cc/d094hLJj/image.png)
 ![Image](https://i.postimg.cc/wMYvnTsn/alpr.png)
+
+# Image For test
+![Image](https://postimg.cc/Ny5z4cQ4][img]https://i.postimg.cc/Ny5z4cQ4/09-Plat-H-Kodeplat-com.jpg)
+
+![Image](https://postimg.cc/Fk9q0Jzf][img]https://i.postimg.cc/Fk9q0Jzf/1645510979-Cara-Ganti-Platmobil-prosedurdansyarat.jpg)
+
+![Image](https://postimg.cc/mcv8y1XL][img]https://i.postimg.cc/mcv8y1XL/2022-03-14-20-57-44.jpg)
+
+![Image](https://postimg.cc/QHNGTvK6][img]https://i.postimg.cc/QHNGTvK6/227083-620.jpg)

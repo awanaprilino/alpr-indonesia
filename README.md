@@ -1,5 +1,6 @@
 # alpr-indonesia
 Deteksi otomatis plat nomor indonesia lama (hitam - putih) menggunakan gambar. 
+Menggunakan metode yolo v3 dan tesseractOCR
 
 # Requirement
 - OS Windows

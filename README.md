@@ -18,4 +18,4 @@ Deteksi otomatis plat nomor indonesia lama (hitam - putih) menggunakan gambar.
 admin@alpr.id
 123456
 
-[![Image](https://i.postimg.cc/wMYvnTsn/alpr.png)]
+![Image](https://i.postimg.cc/wMYvnTsn/alpr.png)

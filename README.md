@@ -15,10 +15,11 @@ Deteksi otomatis plat nomor indonesia lama (hitam - putih) menggunakan gambar.
 - import sql file
 - run python app.py
 - login
-admin@alpr.id
-123456
 
-![Image](https://i.postimg.cc/d094hLJj/image.png)
+username: admin@alpr.id
+password: 123456
+
+![Image]((https://i.postimg.cc/NMXHVnLC/image.png)
 ![Image](https://i.postimg.cc/wMYvnTsn/alpr.png)
 
 # Image For test
